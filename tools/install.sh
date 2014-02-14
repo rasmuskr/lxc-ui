@@ -64,8 +64,8 @@ cat > '/etc/init.d/lxc-ui-agent' <<EOF
 
 
 WORK_DIR="$INSTALL_DIR"
-SCRIPT="lxc-ui-agent.py"
-DAEMON="\$WORK_DIR/lxc-ui-virtualenv/bin/python \$WORK_DIR/lxc-ui-agent/\$SCRIPT"
+SCRIPT="lxc_ui_agent.py"
+DAEMON="\$WORK_DIR/lxc-ui-virtualenv/bin/python \$WORK_DIR/lxc_ui_agent/\$SCRIPT"
 PIDFILE="/var/run/lxc-ui-agent.pid"
 USER="root"
 
