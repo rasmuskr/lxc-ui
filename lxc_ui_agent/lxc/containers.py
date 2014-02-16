@@ -75,6 +75,37 @@ def delete_container(container_name, group_name):
     return result
 
 
+def container_status(container_name, group_name):
+    if container_name not in list_containers(group_name):
+        return {
+            "status": "error",
+        }
+
+    dir_name = lxc_base_dir + "" + group_name + "/"
+
+    command = "lxc-info "
+    command += "--name {container_name} ".format(container_name=container_name)
+    command += "--lxcpath {dir_name} ".format(dir_name=dir_name)
+
+    result = helpers.run(command, output=True)
+
+    result_dict = {}
+    for line in result.splitlines():
+        split_list = line.split(":")
+        if len(split_list) != 2:
+            logger.debug("failed to split line '%s'", line)
+            continue
+
+        key, value = split_list
+        key = key.strip()
+        value = value.strip()
+
+        if key == "state":
+            result_dict["state"] = value
+
+    return result_dict
+
+
 def stop_container(container_name, group_name):
     if container_name not in list_containers(group_name):
         return False
@@ -101,9 +132,11 @@ def start_container(container_name, group_name):
     command = "lxc-start "
     command += "--name {container_name} ".format(container_name=container_name)
     command += "--lxcpath {dir_name} ".format(dir_name=dir_name)
+    command += "--daemon "
 
     result = helpers.run(command)
 
     logger.debug("starting '%s' for group '%s', result from command '%s'", container_name, group_name, result)
 
     return result
+
