@@ -10,7 +10,7 @@ app = flask.Flask(__name__)
 @app.route('/')
 def root():
     headers = {
-        "Location": "/static/index.html",
+        "Location": "/static/lxc-ui/index.html",
     }
     return flask.Response("Redirecting", status=302, headers=headers)
 
