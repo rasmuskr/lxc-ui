@@ -1,0 +1,39 @@
+<!-- Make sure the menu pushes the rest of the body down -->
+<style type="text/css">
+    body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    }
+</style>
+
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/static/lxc-ui/index.html?page=home">LXC UI</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!-- Linkies -->
+            <ul class="nav navbar-nav">
+                <li id="nav-home"><a href="/static/lxc-ui/index.html?page=home">Home</a></li>
+                <li id="nav-admin"><a href="/static/lxc-ui/index.html?page=admin">Admin</a></li>
+            </ul>
+
+            <!-- login -->
+            <div id="login-container"></div>
+            <script type="text/javascript" charset="utf-8">
+                $('#login-container').load('/static/lxc-ui/menu/login.html');
+
+            </script>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+
+<script src="/static/lxc-ui/menu/menu.js"></script>

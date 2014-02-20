@@ -1,0 +1,23 @@
+<script src="/static/lxc-ui/admin/admin.js"></script>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3" id="admin-left-menu"></div>
+        <script type="text/javascript" charset="utf-8">
+            $('#admin-left-menu').load('/static/lxc-ui/admin/admin-left-menu.html');
+
+        </script>
+
+        <div class="col-md-9" id="admin-main-container"></div>
+        <script type="text/javascript" charset="utf-8">
+                var pageName = getCurrentAdminSubPageName();
+                $('#admin-main-container').load('/static/lxc-ui/admin/'+pageName+'.html');
+
+        </script>
+
+
+    </div>
+</div>
+
+

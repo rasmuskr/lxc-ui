@@ -1,0 +1,40 @@
+<h1 class="page-header">Groups</h1>
+
+<p>Some text</p>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Panel heading text</div>
+
+    <!-- Table -->
+    <table class="table" id="adminDataTable">
+        <tr>
+            <th>header 1</th>
+            <th>header 2</th>
+            <th>header 3</th>
+        </tr>
+    </table>
+
+</div>
+
+
+<!-- a small piece of JS to make sure the right button is active -->
+<script type="text/javascript" charset="utf-8">
+function loadAdminData()
+{
+    var size = 5;
+    for ( var i = 0; i<size; i++) {
+         $("#adminDataTable").append(
+            "<tr>"+
+                "<td>"+i+"</td>" +
+                "<td>"+i+"</td>" +
+                "<td>"+i+"</td>" +
+            "</tr>"
+         );
+    }
+}
+
+loadAdminData();
+
+
+</script>

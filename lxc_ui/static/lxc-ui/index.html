@@ -11,21 +11,22 @@
 
     <!-- lxc-ui scripts -->
     <script src="/static/lxc-ui/js/helpers.js"></script>
-    <script src="/static/lxc-ui/js/auth.js"></script>
+
 
 </head>
 <body>
 
 <div id="menu-container"></div>
 <script type="text/javascript" charset="utf-8">
-        $('#menu-container').load('/static/lxc-ui/menu.html');
+        $('#menu-container').load('/static/lxc-ui/menu/menu.html');
 
 
 </script>
 
 <div id="content-container"></div>
 <script type="text/javascript" charset="utf-8">
-        $('#content-container').load('/static/lxc-ui/'+getCurrentPageName()+'.html');
+    var pageName = getCurrentPageName();
+    $('#content-container').load('/static/lxc-ui/'+pageName+'/'+pageName+'.html');
 
 
 </script>

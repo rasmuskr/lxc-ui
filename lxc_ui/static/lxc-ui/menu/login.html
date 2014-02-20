@@ -1,0 +1,25 @@
+<!-- Login part -->
+<!-- Login shown by js if not logged in -->
+<div id="username-password-fields" style="display:none;">
+    <form class="navbar-form navbar-right">
+        <div class="form-group">
+            <input type="text" placeholder="Username" class="form-control" id="username-field">
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Password" class="form-control" id="password-field">
+        </div>
+        <button type="submit" class="btn btn-success" onclick="getUsernamePasswordFromLogin()">Sign in
+        </button>
+    </form>
+</div>
+<!-- Login shown by js if logged in -->
+<div id="show-logged-in-user" class="navbar-right" style="display:none;">
+    <ul class="nav navbar-nav">
+        <li id="nav-username"><a id="logged-in-user-field" href="/static/lxc-ui/index.html?page=user">Username</a>
+        </li>
+        <li id="nav-logout"><a href="/static/lxc-ui/index.html?page=home" onclick="logout()">Logout</a></li>
+    </ul>
+</div>
+
+
+<script src="/static/lxc-ui/menu/login.js"></script>
