@@ -6,8 +6,12 @@ import flask
 
 app = flask.Flask(__name__)
 
+import api.users
 
-@app.route('/')
+app.register_blueprint(api.users.users_blueprint)
+
+
+@app.route("/")
 def root():
     headers = {
         "Location": "/static/lxc-ui/index.html",

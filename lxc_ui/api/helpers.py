@@ -3,20 +3,24 @@ import logging
 
 import flask
 
+import db.tokens
+
 
 logger = logging.getLogger(__name__)
 
-
-def get_containers():
-    return flask.current_app.config["singletons"]["containers"]
+token_db = db.tokens.TokenDB()
 
 
 def check_auth(token):
-    expected_token = flask.current_app.config.get("lxc_ui_agent_config", {}).get("expected_token", None)
+    flask.request.__dict__["extra_auth_data"] = None
 
-    if expected_token is not None and token == expected_token:
-        return True
-    return False
+    token_data = token_db.get_token_data(token)
+    if token_data is None:
+        return False
+
+    flask.request.__dict__["extra_auth_data"] = token_data
+
+    return True
 
 
 def secured_endpoint(f):
@@ -24,6 +28,7 @@ def secured_endpoint(f):
     def decorated(*args, **kwargs):
         try:
             auth = flask.request.headers["Authorization"]
+            # strip bearer
             token = auth[7:]
             if not token or not check_auth(token):
                 logger.debug("failed auth '%s'", token)

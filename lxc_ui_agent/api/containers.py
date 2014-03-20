@@ -3,7 +3,6 @@ import logging
 
 import flask
 
-import lxc_ui_agent.lxc.containers
 import helpers
 
 
@@ -16,7 +15,7 @@ container_blueprint = flask.Blueprint(__name__, "containers")
 def groups():
     if flask.request.method == "GET":
         data = {}
-        groups = lxc_ui_agent.lxc.containers.list_groups()
+        groups = helpers.get_containers().list_groups()
         data["groups"] = groups
         return flask.jsonify(data)
 
@@ -28,7 +27,7 @@ def groups():
 def containers_create(group_name):
     if flask.request.method == "GET":
         data = {}
-        containers = lxc_ui_agent.lxc.containers.list_containers(group_name)
+        containers = helpers.get_containers().list_containers(group_name)
         data["containers"] = containers
         return flask.jsonify(data)
 
@@ -42,7 +41,7 @@ def containers_create(group_name):
 
         container_name = data["container_name"]
 
-        status = lxc_ui_agent.lxc.containers.create_container(container_name, group_name)
+        status = helpers.get_containers().create_container(container_name, group_name)
 
         logger.debug("created container %s", status)
 
@@ -59,7 +58,7 @@ def containers_create(group_name):
 def container_info(group_name, container_name):
     if flask.request.method == "GET":
 
-        status_data = lxc_ui_agent.lxc.containers.container_status(container_name, group_name)
+        status_data = helpers.get_containers().container_status(container_name, group_name)
 
         data = {
             "container_name": container_name,
@@ -72,7 +71,7 @@ def container_info(group_name, container_name):
 
     elif flask.request.method == "DELETE":
 
-        status = lxc_ui_agent.lxc.containers.delete_container(container_name, group_name)
+        status = helpers.get_containers().delete_container(container_name, group_name)
 
         if not status:
             return flask.Response("failed to create container", status=500)
@@ -85,16 +84,16 @@ def container_info(group_name, container_name):
         if type(data) is not dict:
             return flask.Response("root data not dict", status=400)
 
-        status_data = lxc_ui_agent.lxc.containers.container_status(container_name, group_name)
+        status_data = helpers.get_containers().container_status(container_name, group_name)
 
         if "state" in data:
             current_state = status_data["state"] if "state" in status_data else "UNKNOWN"
             desired_state = data["state"]
             if current_state != desired_state:
                 if desired_state == "RUNNING":
-                    lxc_ui_agent.lxc.containers.start_container(container_name, group_name)
+                    helpers.get_containers().start_container(container_name, group_name)
                 elif desired_state == "STOPPED":
-                    lxc_ui_agent.lxc.containers.stop_container(container_name, group_name)
+                    helpers.get_containers().stop_container(container_name, group_name)
                 else:
                     return flask.Response("'state' must be 'RUNNING' or 'STOPPED' not '%s'" % (desired_state, ),
                                           status=400)
